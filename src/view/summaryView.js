@@ -49,7 +49,7 @@ const RevenueChart = () => {
   return (
     <div className="card-container">
       <div className="chart-card">
-        <div class="title-div"><h2 class="title-h1">Revenue Summary</h2></div>
+        <div className="title-div"><h2 className="title-h1">Revenue Summary</h2></div>
         <VictoryChart
           height={600}
           width={1000}

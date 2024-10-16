@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { server } from "../const";
 
 // Get Invoice Reducer
 export const fetchInvoices = createAsyncThunk('invoices/fetchInvoices', async () => {
-  const response = await fetch('http://localhost:1234/api/invoice');
+  const response = await fetch(server+'/api/invoice');
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }

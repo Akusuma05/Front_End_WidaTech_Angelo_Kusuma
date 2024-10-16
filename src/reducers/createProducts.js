@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { server } from "../const";
 
 //Create Product Reducer
 export const submitProduct = createAsyncThunk('products/submitProduct', async (productData) => {
@@ -9,7 +10,7 @@ export const submitProduct = createAsyncThunk('products/submitProduct', async (p
   formData.append('product_stock', productData.product_stock);
   formData.append('product_price', productData.product_price);
 
-  const response = await axios.post('http://localhost:1234/api/product', formData, {
+  const response = await axios.post(server+'/api/product', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

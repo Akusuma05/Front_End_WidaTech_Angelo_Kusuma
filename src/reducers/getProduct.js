@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { server } from "../const";
 
 // Get Product Reducer
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  const response = await fetch('http://localhost:1234/api/product');
+  const response = await fetch(server+'/api/product');
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }

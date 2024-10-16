@@ -4,6 +4,7 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { fetchProducts } from '../reducers/getProduct';
 import { submitInvoice } from '../reducers/createInvoice';
 import { fetchInvoices } from '../reducers/getInvoice';
+import { server } from '../const'
 import './styles/addInvoiceView.css';
 
 const AddInvoiceView = () => {
@@ -83,7 +84,7 @@ const AddInvoiceView = () => {
   
   const formatItem = (product) => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <img src={`http://localhost:1234/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
+      <img src={server+`/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
       <span>{product.product_name}</span>
     </div>
   );
@@ -159,7 +160,7 @@ const AddInvoiceView = () => {
             </button>
             {invoiceData.products.map((product, index) => (
               <div key={index} className="product-item" style={{ display: 'flex', alignItems: 'center' }}>
-                <img src={`http://localhost:1234/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
+                <img src={server+`/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
                 <span>{product.product_name}</span>
                 <button type="button" onClick={() => handleRemoveProduct(index)}>Remove</button>
               </div>

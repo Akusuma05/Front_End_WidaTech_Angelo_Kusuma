@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../reducers/getProduct';
+import { server } from '../const';
 import './styles/productView.css'; 
 
 const ProductList = () => {
@@ -27,7 +28,7 @@ const ProductList = () => {
     <div className="grid-container-product">
       {products.map((product) => (
         <div key={product.product_id} className="card-product">
-          <img src={`http://localhost:1234/${product.product_picture}`} alt={product.product_name} className="card-img-product" />
+          <img src={server+`/${product.product_picture}`} alt={product.product_name} className="card-img-product" />
           <div className="card-content-product">
             <h3 className="card-title-product">{product.product_name}</h3>
             <p className="card-price-product">Rp.{new Intl.NumberFormat('id-ID').format(product.product_price)}</p>

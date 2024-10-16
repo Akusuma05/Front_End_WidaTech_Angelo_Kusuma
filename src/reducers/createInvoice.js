@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { server } from "../const";
 
 //Create Invoice Reducer
 export const submitInvoice = createAsyncThunk('invoices/submitInvoice', async (invoiceData) => {
@@ -9,7 +10,7 @@ export const submitInvoice = createAsyncThunk('invoices/submitInvoice', async (i
   formData.append('invoice_notes', invoiceData.invoice_notes);
   formData.append('invoice_date', invoiceData.invoice_date);
 
-  const response = await axios.post('http://localhost:1234/api/invoice', formData, {
+  const response = await axios.post(server+'/api/invoice', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -22,7 +23,7 @@ export const submitInvoice = createAsyncThunk('invoices/submitInvoice', async (i
         const productFormData = new FormData();
         productFormData.append('invoice_id', invoiceId);
         productFormData.append('product_id', product.id);
-        return axios.post('http://localhost:1234/api/productinvoice', productFormData, {
+        return axios.post(server+'/api/productinvoice', productFormData, {
             headers: {
             'Content-Type': 'multipart/form-data',
             },

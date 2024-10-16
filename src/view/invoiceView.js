@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoices } from '../reducers/getInvoice';
+import { server } from '../const'
 import './styles/invoiceView.css'; 
 
 const InvoiceView = () => {
@@ -117,7 +118,7 @@ const InvoiceView = () => {
                 {selectedInvoice.products.map((product, index) => (
                   <li key={index}>
                     <div className='product-card-invoice'>
-                      <img src={`http://localhost:1234/${product.product_picture}`} alt={product.product_name} className="card-img-invoice-view" />
+                      <img src={server+`/${product.product_picture}`} alt={product.product_name} className="card-img-invoice-view" />
                       {product.product_name} - Rp.{new Intl.NumberFormat('id-ID').format(product.product_price)}
                     </div>
                   </li>
