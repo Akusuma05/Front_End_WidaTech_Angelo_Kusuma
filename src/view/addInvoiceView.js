@@ -26,7 +26,7 @@ const AddInvoiceView = () => {
   
   const newProducts = products.map(product => ({
     id: product.product_id,
-    name: product.product_name + " Rp." + product.product_price,
+    name: product.product_name + " Stock: " + product.product_stock + " Rp." + product.product_price,
     picture: product.product_picture,
     ...product
   }));
@@ -86,6 +86,10 @@ const AddInvoiceView = () => {
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <img src={server+`/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
       <span>{product.product_name}</span>
+      <div style={{width: '10px'}}></div>
+      <span>Rp.{Intl.NumberFormat('id-ID').format(product.product_price)}</span>
+      <div style={{width: '10px'}}></div>
+      <span>Stock: {product.product_stock}</span>
     </div>
   );
   
@@ -155,9 +159,11 @@ const AddInvoiceView = () => {
                 styling={{ width: '100%' }} 
               />
             </div>
-            <button type="button" className="center" onClick={handleAddProduct}>
-              Add Product
-            </button>
+            <div className='button-add-product-invoice'>
+              <button type="button" className="center" onClick={handleAddProduct}>
+                Add Product
+              </button>
+            </div>
             {invoiceData.products.map((product, index) => (
               <div key={index} className="product-item" style={{ display: 'flex', alignItems: 'center' }}>
                 <img src={server+`/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
@@ -166,7 +172,9 @@ const AddInvoiceView = () => {
               </div>
             ))}
           </div>
-          <button type="submit" className="center">Submit</button>
+          <div className='button-add-product-invoice'>
+            <button type="submit" className="center">Submit</button>
+          </div>
         </form>
       </div>
   );
