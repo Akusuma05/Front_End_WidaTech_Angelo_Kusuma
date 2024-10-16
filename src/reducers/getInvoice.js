@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Async thunk to fetch invoices
+// Get Invoice Reducer
 export const fetchInvoices = createAsyncThunk('invoices/fetchInvoices', async () => {
   const response = await fetch('http://localhost:1234/api/invoice');
   if (!response.ok) {

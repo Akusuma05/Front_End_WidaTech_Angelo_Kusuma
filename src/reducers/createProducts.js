@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Async thunk to submit product
+//Create Product Reducer
 export const submitProduct = createAsyncThunk('products/submitProduct', async (productData) => {
   const formData = new FormData();
   formData.append('product_name', productData.product_name);
