@@ -14,56 +14,6 @@ const InvoiceView = () => {
   const [loadedInvoices, setLoadedInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
-  useEffect(() => {
-    if (invoiceStatus === 'idle') {
-      dispatch(fetchInvoices());
-    }
-  }, [invoiceStatus, dispatch]);
-
-  useEffect(() => {
-    if (invoiceStatus === 'succeeded') {
-      const startIndex = (page - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      setLoadedInvoices(invoices.slice(startIndex, endIndex));
-    }
-  }, [invoices, invoiceStatus, page, itemsPerPage]);
-
-  const handleScroll = useCallback(() => {
-    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-    if (scrollHeight - scrollTop === clientHeight && page * itemsPerPage < invoices.length) {
-      setPage(prevPage => prevPage + 1);
-    }
-  }, [page, itemsPerPage, invoices.length]);
-
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  const handleResize = useCallback(() => {
-    const height = window.innerHeight;
-    const calculatedItemsPerPage = Math.floor(height / 170); 
-    setItemsPerPage(calculatedItemsPerPage);
-  }, []);
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [handleResize]);
-
-  const handleSelectInvoice = (invoice) => {
-    setSelectedInvoice(invoice);
-  };
-
-  const closePopup = () => {
-    const popupCard = document.querySelector('.popup-card');
-    popupCard.classList.add('close-animation');
-    document.querySelector('.popup-container').classList.add('fade-out');
-    setTimeout(() => setSelectedInvoice(null), 100);
-  };
-
   const handlePreviousPage = () => {
     if (page > 1) {
       setPage(page - 1);
@@ -75,6 +25,47 @@ const InvoiceView = () => {
       setPage(page + 1);
     }
   };
+
+  //Animation When Closing Invoice Card
+  const closePopup = () => {
+    const popupCard = document.querySelector('.popup-card');
+    popupCard.classList.add('close-animation');
+    document.querySelector('.popup-container').classList.add('fade-out');
+    setTimeout(() => setSelectedInvoice(null), 100);
+  };
+
+  //Item Shown Per Page
+  const handleResize = useCallback(() => {
+    const height = window.innerHeight;
+    const calculatedItemsPerPage = Math.floor(height / 170); 
+    setItemsPerPage(calculatedItemsPerPage);
+  }, []);
+
+  const handleSelectInvoice = (invoice) => {
+    setSelectedInvoice(invoice);
+  };
+
+  //get Invoices Data if not yet get
+  useEffect(() => {
+    if (invoiceStatus === 'idle') {
+      dispatch(fetchInvoices());
+    }
+  }, [invoiceStatus, dispatch]);
+
+  //Show which invoice to show at a certain page
+  useEffect(() => {
+    if (invoiceStatus === 'succeeded') {
+      const startIndex = (page - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      setLoadedInvoices(invoices.slice(startIndex, endIndex));
+    }
+  }, [invoices, invoiceStatus, page, itemsPerPage]);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [handleResize]);
 
   if (invoiceStatus === 'loading') {
     return <div>Loading...</div>;
@@ -89,6 +80,8 @@ const InvoiceView = () => {
       <div>
           <div className='card-invoice-title'><h2 className='card-invoice-title-h1'>Invoices</h2></div>
           <div className="card-container">
+            
+            {/* Invoice Card View */}
             {loadedInvoices.map((invoice, index) => (
             <div key={index} className="card" onClick={() => handleSelectInvoice(invoice)}>
               <div className="card-content">
@@ -104,6 +97,7 @@ const InvoiceView = () => {
           ))}
           </div>
         
+        {/* Invoice Pop Up Details */}
         {selectedInvoice && (
           <div className="popup-container">
             <div className="popup-card">
@@ -129,7 +123,8 @@ const InvoiceView = () => {
           </div>
         )}
       </div>
-
+      
+      {/* Pagination */}
       <div className="pagination">
         <button onClick={handlePreviousPage} disabled={page === 1}>Previous</button>
         <span>Page {page}</span>

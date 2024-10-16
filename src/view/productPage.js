@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ProductList from './productView';
+import ProductView from './productView';
 import AddProductView from './addProductView';
 import { toggleAddProduct } from '../actions/floatingActionButtonProduct';
 import './styles/productpage.css';
@@ -10,12 +10,14 @@ const ProductPage = () => {
   const showAddProduct = useSelector(state => state.product.showAddProduct);
   const [animate, setAnimate] = useState(false);
 
+  //Card View Animation
   useEffect(() => {
     if (showAddProduct) {
       setAnimate(true);
     }
   }, [showAddProduct]);
 
+  //Floating Action Button Pressed
   const handleFabClick = () => {
     if (showAddProduct) {
       setAnimate(false);
@@ -29,7 +31,10 @@ const ProductPage = () => {
 
   return (
     <div className="product-page-container">
-      <div><ProductList /></div>
+      {/* ProductView */}
+      <div><ProductView /></div>
+
+      {/* Pop Up Add Product View */}
       {showAddProduct && (
         <div className="popup-container-product">
           <div className={`popup-card-product ${animate ? 'fade-in-slide-in' : 'fade-out-slide-out'}`}>
@@ -38,6 +43,8 @@ const ProductPage = () => {
           </div>
         </div>
       )}
+
+      {/* Floating Action Button Add Product View */}
       <button className="fab" onClick={handleFabClick}>+</button>
     </div>
   );

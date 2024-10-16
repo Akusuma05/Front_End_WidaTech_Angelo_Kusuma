@@ -21,6 +21,8 @@ const RevenueChart = () => {
     if (invoiceStatus === 'succeeded') {
       const revenueMap = invoices.reduce((acc, invoice) => {
         const date = new Date(invoice.invoice_date).toISOString().split('T')[0];
+        
+        //Counting Total Revenue
         const totalRevenue = invoice.products.reduce((sum, product) => sum + product.product_price, 0);
         if (!acc[date]) {
           acc[date] = 0;
@@ -50,6 +52,8 @@ const RevenueChart = () => {
     <div className="card-container">
       <div className="chart-card">
         <div className="title-div"><h2 className="title-h1">Revenue Summary</h2></div>
+
+        {/* Chart */}
         <VictoryChart
           height={600}
           width={1000}
@@ -57,8 +61,13 @@ const RevenueChart = () => {
           scale={{ x: "time" }}
           padding={{ bottom: 150, left: 150, right: 150 }}
         >
+          {/* X Axis which is Date Legend */}
           <VictoryAxis tickFormat={(x) => new Date(x).toLocaleDateString()} />
+
+          {/* Y Axis Total Revenue */}
           <VictoryAxis dependentAxis tickFormat={(y) => `Rp.${y / 1000}k`} />
+
+          {/* Chart Data */}
           <VictoryLine
             data={revenueData}
             x="date"

@@ -12,7 +12,6 @@ const AddInvoiceView = () => {
   const products = useSelector((state) => state.getProducts.products);
   const productStatus = useSelector((state) => state.getProducts.status);
   const error = useSelector((state) => state.getProducts.error);
-  const invoiceStatus = useSelector((state) => state.getInvoices.status);
   
   const [invoiceData, setInvoiceData] = useState({
     invoice_customer_name: '',
@@ -24,6 +23,7 @@ const AddInvoiceView = () => {
   
   const [selectedProduct, setSelectedProduct] = useState(null);
   
+  // Product Array Mapping for the SearchAutoComplete
   const newProducts = products.map(product => ({
     id: product.product_id,
     name: product.product_name + " Stock: " + product.product_stock + " Rp." + product.product_price,
@@ -44,10 +44,12 @@ const AddInvoiceView = () => {
     });
   };
   
+  // When a Product is Pressed in the SearchAutoComplete
   const handleSelectProduct = (item) => {
     setSelectedProduct(item);
   };
   
+  // Button Add Product Pressed
   const handleAddProduct = () => {
     if (selectedProduct) {
       setInvoiceData({
@@ -58,6 +60,7 @@ const AddInvoiceView = () => {
     }
   };
   
+  // Button Remove Product Pressed
   const handleRemoveProduct = (index) => {
     const updatedProducts = [...invoiceData.products];
     updatedProducts.splice(index, 1);
@@ -67,6 +70,7 @@ const AddInvoiceView = () => {
     });
   };
   
+  // Button Submit Pressed
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
@@ -82,6 +86,7 @@ const AddInvoiceView = () => {
     });
   };
   
+  //Suggestions Items in SearchAutoComplete
   const formatItem = (product) => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <img src={server+`/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
@@ -105,6 +110,8 @@ const AddInvoiceView = () => {
       <div className="add-invoice-form">
         <h2>Add Invoice</h2>
         <form onSubmit={handleSubmit}>
+
+          {/* Customer Name Form */}
           <div className="form-group">
             <label htmlFor="invoice_customer_name">Customer Name:</label>
             <input
@@ -116,6 +123,8 @@ const AddInvoiceView = () => {
               required
             />
           </div>
+
+          {/* SalesPerson Form */}
           <div className="form-group">
             <label htmlFor="invoice_salesperson_name">Salesperson Name:</label>
             <input
@@ -127,6 +136,8 @@ const AddInvoiceView = () => {
               required
             />
           </div>
+
+          {/* Invoice Notes */}
           <div className="form-group">
             <label htmlFor="invoice_notes">Notes:</label>
             <textarea
@@ -136,6 +147,8 @@ const AddInvoiceView = () => {
               onChange={handleChange}
             ></textarea>
           </div>
+
+          {/* Invoice Date Form */}
           <div className="form-group">
             <label htmlFor="invoice_date">Invoice Date:</label>
             <input
@@ -147,6 +160,8 @@ const AddInvoiceView = () => {
               required
             />
           </div>
+          
+          {/* Product Form */}
           <div className="product-form">
             <h3>Products</h3>
             <div style={{ width: '100%' }}>
@@ -164,6 +179,8 @@ const AddInvoiceView = () => {
                 Add Product
               </button>
             </div>
+            
+            {/* Product That is Added */}
             {invoiceData.products.map((product, index) => (
               <div key={index} className="product-item" style={{ display: 'flex', alignItems: 'center' }}>
                 <img src={server+`/${product.product_picture}`} alt={product.product_name} style={{ width: '50px', marginRight: '10px' }} />
@@ -171,7 +188,10 @@ const AddInvoiceView = () => {
                 <button type="button" onClick={() => handleRemoveProduct(index)}>Remove</button>
               </div>
             ))}
+
           </div>
+
+          {/* Submit Button */}
           <div className='button-add-product-invoice'>
             <button type="submit" className="center">Submit</button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { submitProduct } from '../reducers/createProducts';
 import { fetchProducts } from '../reducers/getProduct';
 import './styles/addProductView.css'; 
@@ -10,9 +10,8 @@ const AddProductView = () => {
     const [productStock, setProductStock] = useState('');
     const [productPrice, setProductPrice] = useState('');
     const dispatch = useDispatch();
-    const productStatus = useSelector(state => state.createProducts.status);
-    const error = useSelector(state => state.createProducts.error);
 
+    //Submit Button Pressed
     const handleSubmit = (e) => {
         e.preventDefault();
         const productData = {
@@ -35,6 +34,8 @@ const AddProductView = () => {
         <div className="add-product-form card-content">
             <h2>Add Product</h2>
             <form onSubmit={handleSubmit}>
+
+                {/* Product Name Form */}
                 <div className="form-group">
                     <label htmlFor="product_name">Product Name:</label>
                     <input
@@ -45,6 +46,8 @@ const AddProductView = () => {
                         required
                     />
                 </div>
+
+                {/* Product Picture Input Form */}
                 <div className="form-group">
                     <label htmlFor="product_picture">Product Picture:</label>
                     <input
@@ -54,6 +57,8 @@ const AddProductView = () => {
                         required
                     />
                 </div>
+
+                {/* Product Stock */}
                 <div className="form-group">
                     <label htmlFor="product_stock">Product Stock:</label>
                     <input
@@ -64,6 +69,8 @@ const AddProductView = () => {
                         required
                     />
                 </div>
+
+                {/* Product Price */}
                 <div className="form-group">
                     <label htmlFor="product_price">Product Price:</label>
                     <input
@@ -74,6 +81,8 @@ const AddProductView = () => {
                         required
                     />
                 </div>
+
+                {/* Submit Button */}
                 <button type="submit" className="center">Submit</button>
             </form>
         </div>
