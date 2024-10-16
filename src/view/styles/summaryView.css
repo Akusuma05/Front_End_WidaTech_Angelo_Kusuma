@@ -1,0 +1,39 @@
+@keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+.title-div{
+    background-color: #4595af;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title-h1{
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+  
+.chart-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 700px;
+}
+  
+.VictoryLine {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+  

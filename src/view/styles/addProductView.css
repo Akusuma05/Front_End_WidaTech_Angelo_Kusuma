@@ -1,0 +1,40 @@
+.card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px;
+    padding: 20px;
+}
+  
+.add-product-form .card-content {
+    padding: 15px;
+}
+  
+.form-group {
+    margin-bottom: 15px;
+}
+  
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+  
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group input[type="number"],
+.form-group button {
+    width: 80%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+  
+.center {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #8884d8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
